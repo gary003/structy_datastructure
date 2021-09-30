@@ -1,0 +1,2 @@
+# structy
+structy website exercises
