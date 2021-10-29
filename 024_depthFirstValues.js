@@ -14,8 +14,6 @@ The function should return an array containing all values of the tree in depth-f
 */
 
 const depthFirstValues = (root) => {
-  // console.log(root)
-
   if (!root) return []
 
   const arr = []
@@ -24,12 +22,9 @@ const depthFirstValues = (root) => {
   while (stack.length > 0) {
     const currentValue = stack.pop()
 
-    arr.push(currentValue ? currentValue.val : null)
+    arr.push(currentValue.val)
 
-    const left = currentValue ? currentValue.left : null
-    const right = currentValue ? currentValue.right : null
-
-    const nextValues = [right, left].filter((val) => !!val)
+    const nextValues = [currentValue.right, currentValue.left].filter((val) => !!val)
 
     stack = [...stack, ...nextValues]
   }

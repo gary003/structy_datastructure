@@ -21,12 +21,11 @@ const breadthFirstValues = (root) => {
 
   while (queue.length > 0) {
     const currentNode = queue.shift()
-    const left = currentNode ? currentNode.left : null
-    const right = currentNode ? currentNode.right : null
 
-    const nextValues = [left, right].filter((val) => !!val)
+    const nextValues = [currentNode.left, currentNode.right].filter((val) => !!val)
 
     arr.push(currentNode.val)
+
     queue.push(...nextValues)
   }
 

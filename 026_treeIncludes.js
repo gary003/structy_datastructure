@@ -23,10 +23,7 @@ const treeIncludes = (root, target) => {
 
     if (currentNode.val === target) return true
 
-    const left = currentNode ? currentNode.left : null
-    const right = currentNode ? currentNode.right : null
-
-    const nextValues = [left, right].filter((val) => !!val)
+    const nextValues = [currentNode.left, currentNode.right].filter((val) => !!val)
 
     queue.push(...nextValues)
   }
