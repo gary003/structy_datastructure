@@ -18,7 +18,7 @@ const semestersRequired = (numCourses, prereqs) => {
   const roots = rangeOfCourses.filter((i) => !prereqs.map((p) => p[1]).includes(i))
   // console.log(roots)
 
-  const stack = [...roots.map((r) => [r, 1])]
+  const stack = roots.map((r) => [r, 1])
 
   console.log(stack)
 
