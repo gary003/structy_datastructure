@@ -33,7 +33,7 @@ const overlapSubsequence = (str1, str2) => {
     table[0].push([[str1.charAt(iLetter), str2.indexOf(str1[iLetter])]])
   }
 
-  console.log(JSON.stringify(table))
+  // console.log(JSON.stringify(table))
 
   const results = table.filter((res) => res.length !== 0)
 
