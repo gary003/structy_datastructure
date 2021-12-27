@@ -12,43 +12,40 @@ A tabulation way to do the exercice ( not as efficient as memoization)
 const overlapSubsequenceTab = (str1, str2) => {
   // console.log(str1.length, str2.length)
 
-  let max = [0, 0]
+  let max = 0
 
   const table = Array(str1.length + 1).fill([])
   table[0] = [[0, 0]]
 
   for (let iStr1 = 0; iStr1 < str1.length; iStr1 += 1) {
     let newTableVal = []
-    for (let iStr2 = 0; iStr2 < str2.length; iStr2 += 1) {
-      // console.log(table[iStr2])
+    // console.log(table[iStr2])
 
-      if (!table[iStr2]) continue
+    for (let oldPath of table.slice(0, iStr1 + 1).flat()) {
+      // console.log(oldPath, str1[iStr2 + 1])
 
-      for (let oldPath of table[iStr2]) {
-        // console.log(oldPath, str1[iStr2 + 1])
+      let letterInStr2 = str2.indexOf(str1[iStr1], oldPath[1])
 
-        let letterInStr2 = str2.indexOf(str1[iStr1], oldPath[1])
-        if (letterInStr2 === -1) continue
+      if (letterInStr2 === -1) continue
 
-        let iLetterInStr2 = letterInStr2
+      let iLetterInStr2 = letterInStr2
 
-        if (iLetterInStr2 < oldPath[1]) continue
+      if (iLetterInStr2 < oldPath[1]) continue
 
-        let idxShift = str1[iStr1] === str1[iStr2 + 1] ? 1 : 0
+      let idxShift = str1[iStr1] === str2[iLetterInStr2] ? 1 : 0
 
-        const newValue = [oldPath[0] + 1, iLetterInStr2 + idxShift]
+      const newValue = [oldPath[0] + 1, iLetterInStr2 + idxShift]
 
-        if (oldPath[0] + 1 > max[0]) max = newValue
+      if (oldPath[0] + 1 > max) max = newValue[0]
 
-        newTableVal.push(newValue)
-      }
+      newTableVal.push(newValue)
     }
 
     table[iStr1 + 1] = newTableVal
-    //console.log(table)
+    // console.log(table)
   }
 
-  return max[0]
+  return max
 }
 
 console.log(overlapSubsequenceTab("dogs", "daogt")) // -> 3
@@ -57,7 +54,7 @@ console.log(overlapSubsequenceTab("xcyats", "criaotsi")) // -> 4
 console.log(overlapSubsequenceTab("vese", "esve")) // -> 3
 console.log(overlapSubsequenceTab("xfeqortsver", "feeeuavoeqr")) // -> 5
 
-console.log(overlapSubsequenceTab("eeeeeeeeeeee", "feeer")) // -> 3
+console.log(overlapSubsequenceTab("eeeee", "feeer")) // -> 3
 console.log(overlapSubsequenceTab("xfeeeeever", "feeeuavoeqr")) // -> 7
 console.log(overlapSubsequenceTab("edee", "ee")) // -> 2
 
