@@ -5,43 +5,38 @@ The function should return the length of the longest overlapping subsequence.
 A subsequence of a string can be created by deleting any characters of the string, while maintaining the relative order of characters.
 */
 
-/*
-A tabulation way to do the exercice ( not as efficient as memoization)
-*/
-
 const overlapSubsequenceTab = (str1, str2) => {
-  // console.log(str1.length, str2.length)
-
   let max = 0
 
   const table = Array(str1.length + 1).fill([])
-  table[0] = [[0, 0]]
+  table[0] = ["0,0"]
 
   for (let iStr1 = 0; iStr1 < str1.length; iStr1 += 1) {
-    let newTableVal = []
-    // console.log(table[iStr2])
+    const newTableVal = new Set()
 
     for (let oldPath of table.slice(0, iStr1 + 1).flat()) {
-      // console.log(oldPath, str1[iStr2 + 1])
+      // console.log(oldPath)
 
-      let letterInStr2 = str2.indexOf(str1[iStr1], oldPath[1])
+      const [oldPathLength, oldPathFinalIndexInStr2] = oldPath.split(",").map(Number)
+
+      const letterInStr2 = str2.indexOf(str1[iStr1], oldPathFinalIndexInStr2)
 
       if (letterInStr2 === -1) continue
 
-      let iLetterInStr2 = letterInStr2
+      const iLetterInStr2 = letterInStr2
 
-      if (iLetterInStr2 < oldPath[1]) continue
+      if (iLetterInStr2 < oldPathFinalIndexInStr2) continue
 
-      let idxShift = str1[iStr1] === str2[iLetterInStr2] ? 1 : 0
+      const idxShift = str1[iStr1] === str2[iLetterInStr2] ? 1 : 0
 
-      const newValue = [oldPath[0] + 1, iLetterInStr2 + idxShift]
+      const newValue = `${oldPathLength + 1},${iLetterInStr2 + idxShift}`
 
-      if (oldPath[0] + 1 > max) max = newValue[0]
+      if (oldPathLength + 1 > max) max = oldPathLength + 1
 
-      newTableVal.push(newValue)
+      newTableVal.add(newValue)
     }
 
-    table[iStr1 + 1] = newTableVal
+    table[iStr1 + 1] = Array.from(newTableVal)
     // console.log(table)
   }
 
