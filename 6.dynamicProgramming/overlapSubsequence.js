@@ -8,7 +8,7 @@ A subsequence of a string can be created by deleting any characters of the strin
 const overlapSubsequenceTab = (str1, str2) => {
   let max = 0
 
-  const table = [["0,0"]]
+  const table = ["0,0"]
 
   for (let iStr1 = 0; iStr1 < str1.length; iStr1 += 1) {
     const newTableVal = new Set()
