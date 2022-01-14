@@ -38,3 +38,24 @@ console.log(createCombinations([1, 28, 94], 3)) // ->
 // [
 //   [ 1, 28, 94 ]
 // ]
+
+// // recursive
+// const createCombinations = (items, k) => {
+//   if (items.length < k) return []
+
+//   if (k === 0) return [[]]
+
+//   const first = items[0]
+//   const combosWithFirst = []
+//   for (let combo of createCombinations(items.slice(1), k - 1)) {
+//     combosWithFirst.push([first, ...combo])
+//   }
+
+//   const combosWithoutFirst = createCombinations(items.slice(1), k)
+//   return [...combosWithFirst, ...combosWithoutFirst]
+// }
+// // n = length of items
+// // k = target length
+// // Time: ~O(n choose k)
+// // Space: ~O(n choose k)
+// // Note: "n Choose k" refers to the binomial coefficient.
