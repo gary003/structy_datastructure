@@ -4,40 +4,35 @@ Write a function, depthFirstValues, that takes in the root of a binary tree.
 The function should return an array containing all values of the tree in depth-first order.
 */
 
-// const depthFirstValues = (root) => {
-//   if (!root) return []
-
-//   const arr = []
-//   let stack = [root]
-
-//   while (stack.length > 0) {
-//     const currentValue = stack.pop()
-
-//     arr.push(currentValue.val)
-
-//     const nextValues = [currentValue.right, currentValue.left].filter((val) => !!val)
-
-//     stack = [...stack, ...nextValues]
-//   }
-
-//   return arr
-// }
-
 const depthFirstValues = (root) => {
-  if (root === null) return []
+  if (!root) return []
 
-  const res = [root.val]
+  const arr = []
+  let stack = [root]
 
-  if (root.left !== null) {
-    res.push(...depthFirstValues(root.left))
+  while (stack.length > 0) {
+    const currentValue = stack.pop()
+
+    arr.push(currentValue.val)
+
+    const nextValues = [currentValue.right, currentValue.left].filter((val) => !!val)
+
+    stack = [...stack, ...nextValues]
   }
 
-  if (root.right !== null) {
-    res.push(...depthFirstValues(root.right))
-  }
-
-  return res
+  return arr
 }
+
+// const depthFirstValues = (root, res = []) => {
+//   if (root === null) return []
+
+//   res.push(root.val)
+
+//   const left = depthFirstValues(root.left)
+//   const right = depthFirstValues(root.right)
+
+//   return [res, ...left, ...right].flat()
+// }
 
 class Node {
   constructor(val) {
@@ -95,12 +90,10 @@ const b3 = new Node("b")
 const c3 = new Node("c")
 const d3 = new Node("d")
 const e3 = new Node("e")
-
 a3.right = b3
 b3.left = c3
 c3.right = d3
 d3.right = e3
-
 //      a
 //       \
 //        b
