@@ -7,17 +7,18 @@ You may assume that the input array contains unique numbers sorted in increasing
 Your function must implement the binary search algorithm.
 */
 
-const binarySearch = (arr, target, minIndex = 0, maxIndex = arr.length) => {
-  const middle = Math.floor((maxIndex + minIndex) / 2)
+const binarySearch = (arr, target, minIndex = 0) => {
+  if (arr.length === 1 && arr[0] === target) return minIndex
+  if (arr.length === 1 && arr[0] !== target) return -1
 
-  if (minIndex === middle && arr[middle] !== target) return -1
+  const middle = Math.floor(arr.length / 2)
 
-  console.log(minIndex, maxIndex, middle)
+  // console.log(minIndex, middle)
 
-  if (target < arr[middle]) return binarySearch(arr, target, minIndex, middle)
-  if (target > arr[middle]) return binarySearch(arr, target, middle, maxIndex)
+  if (target < arr[middle]) return binarySearch(arr.slice(0, middle), target, minIndex)
+  if (target >= arr[middle]) return binarySearch(arr.slice(middle), target, minIndex + middle)
 
-  return middle
+  return -1
 }
 
 console.log(binarySearch([0, 1, 2, 3, 4, 5, 6, 7, 8], 6)) // -> 6
