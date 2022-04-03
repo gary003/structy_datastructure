@@ -11,7 +11,6 @@ You may assume that the input only contains well-formed square brackets.
 
 const nestingScore = (str, multi = 1, score = 0) => {
   // console.log(str)
-
   if (str === "") return score
 
   const strWithoutEndPairs = str.replace(/^(\[\])+|(\[\])+$/, (x) => {
@@ -20,9 +19,8 @@ const nestingScore = (str, multi = 1, score = 0) => {
     return ""
   })
 
-  const strWithoutMulti = strWithoutEndPairs.replace(/^(\[)(\[)*(\[\])+(\])*(\])/, (x) => {
+  const strWithoutMulti = strWithoutEndPairs.replace(/^\[\[*(\[\])+\]*\]/, (x) => {
     multi *= 2
-    // console.log(x)
     return x.slice(1, x.length - 1)
   })
 
@@ -55,3 +53,7 @@ console.log(nestingScore("[[[[[[[][]]]]]]][]")) // -> 129
 
 //   return stack[0]
 // }
+
+// // n = length of string
+// Time: O(n)
+// Space: O(n)
